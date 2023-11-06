@@ -40,7 +40,21 @@ public class BookRepositoryMySQL implements BookRepository{
 
     @Override
     public Optional<Book> findById(Long id) {
-        return Optional.empty();
+        String sql = "SELECT * FROM book WHERE id = ?;";
+        Book book = null;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                book = getBookFromResultSet(resultSet);
+                //return Optional.of(book);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Optional.empty();
+        }
+        return Optional.ofNullable(book);
     }
 
     /**
@@ -66,10 +80,6 @@ public class BookRepositoryMySQL implements BookRepository{
 
 //        String newSql = "INSERT INTO book VALUES(null, \'" + book.getAuthor() +"\', \'"+ book.getTitle()+"\', null );";
 
-
-
-
-
         try{
 //            Statement statement = connection.createStatement();
 //            statement.executeUpdate(newSql);
@@ -93,10 +103,15 @@ public class BookRepositoryMySQL implements BookRepository{
 
     @Override
     public void removeAll() {
+        String sql = "DELETE FROM book;";
 
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-
-
     private Book getBookFromResultSet(ResultSet resultSet) throws SQLException {
         return new BookBuilder()
                 .setId(resultSet.getLong("id"))

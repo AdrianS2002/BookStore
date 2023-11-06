@@ -2,6 +2,7 @@ package model;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Objects;
 
 // POJO - Plain Old Java Object
 //Java Bean
@@ -41,6 +42,19 @@ public class Book{
 
     public LocalDate getPublishedDate() {
         return publishedDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return Objects.equals(id, book.id) && Objects.equals(author, book.author) && Objects.equals(title, book.title) && Objects.equals(publishedDate, book.publishedDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, author, title, publishedDate);
     }
 
     public void setPublishedDate(LocalDate publishedDate) {

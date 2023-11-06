@@ -24,7 +24,21 @@ public class Main {
                 .setPublishedDate(LocalDate.of(2010, 6, 2))
                 .build();
 
+        Book book1 = new BookBuilder()
+                .setAuthor("Agatha Christie")
+                .setTitle("Crima din Orient Express")
+                .setPublishedDate(LocalDate.of(1934, 1, 1))
+                .build();
+
+        Book book2 = new BookBuilder()
+                .setAuthor("J.k. Rowling")
+                .setTitle("Harry Potter")
+                .setPublishedDate(LocalDate.of(1997, 6, 26))
+                .build();
+
         bookRepository.save(book);
+        bookRepository.save(book1);
+        bookRepository.save(book2);
 
         System.out.println(bookRepository.findAll());
 
