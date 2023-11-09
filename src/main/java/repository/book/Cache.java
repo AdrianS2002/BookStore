@@ -1,2 +1,25 @@
-package repository.book;public class Cache {
+package repository.book;
+
+import java.util.List;
+
+public class Cache<T> {
+    private List<T> storage;
+
+
+    public void save(List<T> entities){
+        this.storage = entities;
+    }
+
+    public List<T> load(){
+        System.out.println("Loading from cache");
+        return storage;
+    }
+
+    public void invalidateCache(){
+        storage = null;
+    }
+
+    public boolean hasResult(){
+        return storage != null;
+    }
 }

@@ -1,23 +1,26 @@
 import database.JDBConnectionWrapper;
 import model.Book;
 import model.builder.BookBuilder;
-import repository.book.BookRepository;
-import repository.book.BookRepositoryMock;
-import repository.book.BookRepositoryMySQL;
+import repository.book.*;
+import service.BookService;
+import service.BookServiceImpl;
 
 import java.time.LocalDate;
 import java.util.Date;
 
 public class Main {
     public static void main(String[] args){
-        System.out.println("Hello world!");
 
         JDBConnectionWrapper connectionWrapper = new JDBConnectionWrapper("test_library");
 
 
 
-        BookRepository bookRepository = new BookRepositoryMySQL(connectionWrapper.getConnection());
-
+        BookRepository bookRepository = new BookRepositoryCacheDecorator(
+                new BookRepositoryMySQL(connectionWrapper.getConnection()),
+                new Cache<>()
+        );
+        BookService bookService = new BookServiceImpl(bookRepository);
+        //folosim Decorator Pattern pentru a adauga functionalitate de cache la repository-ul de carti
         Book book = new BookBuilder()
                 .setAuthor("', '', null); SLEEP(20); --")
                 .setTitle("Fram Ursul Polar")
@@ -36,11 +39,14 @@ public class Main {
                 .setPublishedDate(LocalDate.of(1997, 6, 26))
                 .build();
 
-        bookRepository.save(book);
-        bookRepository.save(book1);
-        bookRepository.save(book2);
+        bookService.save(book);
+        bookService.save(book1);
+        bookService.save(book2);
 
-        System.out.println(bookRepository.findAll());
+        System.out.println(bookService.findAll());
+        System.out.println(bookService.findAll());
+        System.out.println(bookService.findAll());
+        System.out.println(bookService.findAll());
 
 
     }
