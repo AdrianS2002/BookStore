@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3d6a1c6a-9305-49f0-85b9-f0d9471bdbb8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/model/AudioBook.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/model/EBook.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/model/builder/AudioBookBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/model/builder/EBookBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/book/BookRepositoryCacheDecorator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/book/BookRepositoryCacheDecorator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/book/BookRepositoryDecorator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/book/BookRepositoryDecorator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/book/Cache.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/book/Cache.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/BookServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/BookServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +39,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -63,7 +63,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;lab&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;temaLab6&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/Facultate/ANULIII/SemI/IS/LAB5&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -212,7 +212,8 @@
       <workItem from="1699336815666" duration="448000" />
       <workItem from="1699337288635" duration="147000" />
       <workItem from="1699337466034" duration="5129000" />
-      <workItem from="1699545305153" duration="955000" />
+      <workItem from="1699545305153" duration="6745000" />
+      <workItem from="1699552082160" duration="753000" />
     </task>
     <servers />
   </component>
