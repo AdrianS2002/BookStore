@@ -5,12 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3d6a1c6a-9305-49f0-85b9-f0d9471bdbb8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/repository/book/DAO/AbstractBookRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/repository/book/DAO/BookRepositoryMySQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/repository/book/DAO/EBookRepositoryMySQL.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/JDBConnectionWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/JDBConnectionWrapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/AudioBook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/AudioBook.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Book.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/EBook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/EBook.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/builder/AudioBookBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/builder/AudioBookBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/builder/EBookBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/builder/EBookBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/book/BookRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/book/BookRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/book/BookRepositoryCacheDecorator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/book/BookRepositoryCacheDecorator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/book/BookRepositoryDecorator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/book/BookRepositoryDecorator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/book/BookRepositoryMock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/book/BookRepositoryMock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/book/BookRepositoryMySQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/book/BookRepositoryMySQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/BookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/BookService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/BookServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/BookRepositoryMockTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/BookRepositoryMockTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/BookRepositoryMySQLTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/BookRepositoryMySQLTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +65,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -59,21 +76,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;temaLab6&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Facultate/ANULIII/SemI/IS/LAB5&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;D:/Facultate/ANULIII/SemI/IS/Lab5/src/main/java/org/example/Main.java&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "temaLab6",
+    "last_opened_file_path": "D:/Facultate/ANULIII/SemI/IS/LAB5_Reflect",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "onboarding.tips.debug.path": "D:/Facultate/ANULIII/SemI/IS/Lab5/src/main/java/org/example/Main.java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
@@ -185,8 +206,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.BookRepositoryMySQLTest.testFindById" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Gradle.BookRepositoryMySQLTest.testFindById" />
         <item itemvalue="Gradle.BookRepositoryMockTest.testFindAll" />
         <item itemvalue="Gradle.BookRepositoryMockTest.testFindById" />
         <item itemvalue="Gradle.BookRepositoryMockTest.testSave" />
@@ -215,7 +236,9 @@
       <workItem from="1699337466034" duration="5129000" />
       <workItem from="1699545305153" duration="6745000" />
       <workItem from="1699552082160" duration="753000" />
-      <workItem from="1699610858052" duration="731000" />
+      <workItem from="1699610858052" duration="871000" />
+      <workItem from="1699638362191" duration="8306000" />
+      <workItem from="1699707563779" duration="16486000" />
     </task>
     <servers />
   </component>
