@@ -1,26 +1,28 @@
 import database.JDBConnectionWrapper;
+
+
+import model.AudioBook;
 import model.Book;
+import model.EBook;
 import model.builder.BookBuilder;
-import repository.book.*;
-import service.BookService;
-import service.BookServiceImpl;
+import model.builder.EBookBuilder;
+import repository.book.DAO.AbstractBookRepository;
+import repository.book.DAO.AudioBookRepositoryMySQL;
+import repository.book.DAO.BookRepositoryMySQL;
+import repository.book.DAO.EBookRepositoryMySQL;
+
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Main {
     public static void main(String[] args){
 
         JDBConnectionWrapper connectionWrapper = new JDBConnectionWrapper("test_library");
 
-
-
-        BookRepository bookRepository = new BookRepositoryCacheDecorator(
-                new BookRepositoryMySQL(connectionWrapper.getConnection()),
-                new Cache<>()
-        );
-        BookService bookService = new BookServiceImpl(bookRepository);
-        //folosim Decorator Pattern pentru a adauga functionalitate de cache la repository-ul de carti
+        AbstractBookRepository<EBook> bookRepository = new EBookRepositoryMySQL(connectionWrapper.getConnection());
+        AbstractBookRepository<AudioBook> bookRepository1 = new AudioBookRepositoryMySQL(connectionWrapper.getConnection());
+        AbstractBookRepository<Book> bookRepositor2 = new BookRepositoryMySQL(connectionWrapper.getConnection());
+       // folosim Decorator Pattern pentru a adauga functionalitate de cache la repository-ul de carti
         Book book = new BookBuilder()
                 .setAuthor("', '', null); SLEEP(20); --")
                 .setTitle("Fram Ursul Polar")
@@ -39,14 +41,24 @@ public class Main {
                 .setPublishedDate(LocalDate.of(1997, 6, 26))
                 .build();
 
-        bookService.save(book);
-        bookService.save(book1);
-        bookService.save(book2);
+        EBook eBook = new EBookBuilder()
+                .setAuthor("J.k. Rowling")
+                .setTitle("Harry Potter")
+                .setFormat("pdf")
+                .setPublishedDate(LocalDate.of(1997, 6, 26))
+                .build();
 
-        System.out.println(bookService.findAll());
-        System.out.println(bookService.findAll());
-        System.out.println(bookService.findAll());
-        System.out.println(bookService.findAll());
+
+        bookRepositor2.save(book);
+        bookRepositor2.save(book1);
+        bookRepositor2.save(book2);
+        bookRepository.save(eBook);
+
+
+        System.out.println(bookRepositor2.findAll());
+        System.out.println(bookRepositor2.findAll());
+        System.out.println(bookRepositor2.findAll());
+        System.out.println(bookRepository.findAll());
 
 
     }

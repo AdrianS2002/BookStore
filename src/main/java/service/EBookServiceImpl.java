@@ -1,2 +1,4 @@
-package service;public class EBookServiceImpl {
+package service;
+
+public class EBookServiceImpl {
 }

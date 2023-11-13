@@ -15,7 +15,7 @@ public class JDBConnectionWrapper {
     private static final int TIMEOUT = 5;
 
 
-    private Connection connection;
+    private  Connection connection;
 
     public JDBConnectionWrapper(String schema){
         try {
@@ -40,7 +40,29 @@ public class JDBConnectionWrapper {
                 "PRIMARY KEY(id),"+
                 "UNIQUE KEY id_UNIQUE(id)" +
                 ") ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;";
+
+        String sql1 = "CREATE TABLE IF NOT EXISTS Ebook(" +
+                "id bigint NOT NULL AUTO_INCREMENT," +
+                "author varchar(500) NOT NULL," +
+                "title varchar(500) NOT NULL," +
+                "publishedDate datetime DEFAULT NULL," +
+                "format varchar(250) NOT NULL," +
+                "PRIMARY KEY(id),"+
+                "UNIQUE KEY id_UNIQUE(id)" +
+                ") ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;";
+
+        String sql2 = "CREATE TABLE IF NOT EXISTS Audiobook(" +
+                "id bigint NOT NULL AUTO_INCREMENT," +
+                "author varchar(500) NOT NULL," +
+                "title varchar(500) NOT NULL," +
+                "publishedDate datetime DEFAULT NULL," +
+                "runtime int NOT NULL," +
+                "PRIMARY KEY(id),"+
+                "UNIQUE KEY id_UNIQUE(id)" +
+                ") ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;";
         statement.execute(sql);
+        statement.execute(sql1);
+        statement.execute(sql2);
     }
 
     public boolean testConnection() throws SQLException {

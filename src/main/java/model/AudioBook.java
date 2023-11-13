@@ -4,6 +4,9 @@ import java.time.LocalDate;
 
 public class AudioBook {
 
+
+    private int runtime;
+
     private Long id;
 
     private String author;
@@ -12,37 +15,42 @@ public class AudioBook {
 
     private LocalDate publishedDate;
 
-    private int runtime;
-
     public Long getId() {
-        return id;
-    }
+        return id;}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+        public void setId(Long id) {
+            this.id = id;
+        }
 
-    public String getAuthor() {
-        return author;
-    }
+        public String getAuthor() {
+            return author;
+        }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
+        public void setAuthor(String author) {
+            this.author = author;
+        }
 
-    public String getTitle() {
-        return title;
-    }
+        public String getTitle() {
+            return title;
+        }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+        public void setTitle(String title) {
+            this.title = title;
+        }
 
-    public LocalDate getPublishedDate() {
-        return publishedDate;
-    }
+        public LocalDate getPublishedDate() {
+            return publishedDate;
+        }
 
-    public void setPublishedDate(LocalDate publishedDate) {this.publishedDate = publishedDate;}
+
+        public void setPublishedDate(LocalDate publishedDate) {
+            this.publishedDate = publishedDate;
+        }
+
+        @Override
+        public String toString(){
+            return String.format("Book author: %s | title: %s | Published Date: %s | Runtime %d", author, title, publishedDate, runtime);
+        }
 
     public int getRuntime() {
         return runtime;

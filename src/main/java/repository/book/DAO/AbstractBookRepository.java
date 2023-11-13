@@ -1,28 +1,28 @@
 package repository.book.DAO;
-
-import database.DatabaseConnectionFactory;
-import database.JDBConnectionWrapper;
+import repository.book.BookRepository;
 
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.*;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Optional;
 
 
-public class DAOGen<T> {
-    private final Connection connection;
-    protected static final Logger LOGGER = Logger.getLogger(DAOGen.class.getName());
+public class AbstractBookRepository<T> implements BookRepository<T> {
 
-    private final Class<T> type;
+    private Connection connection;
+    private  Class<T> type=null;
+
 
     @SuppressWarnings("unchecked")
-    public DAOGen() {
+    public AbstractBookRepository(Connection connection) {
+
+        this.connection = connection;
         this.type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-        this.connection = DatabaseConnectionFactory.getConnectionWrapper(true).getConnection();
     }
 
 
@@ -58,7 +58,7 @@ public class DAOGen<T> {
                 continue;
             }
             else
-                query+="?,";
+                query +=" ?,";
         }
         query=query.substring(0, query.length() - 1);
         query+=")";
@@ -66,37 +66,35 @@ public class DAOGen<T> {
         return sb.toString();
     }
 
-
+    @Override
     public List<T> findAll() {
-
-        String query = createSelectQuery("1");
+        List<T> books = new ArrayList<T>();
+        String sql = "SELECT * FROM "+type.getSimpleName();
         try {
             Statement statement = connection.createStatement();
 
-            ResultSet resultSet = statement.executeQuery(query);
+            ResultSet resultSet = statement.executeQuery(sql);
 
             return createObjects(resultSet);
-        } catch (SQLException e) {
-            LOGGER.log(Level.WARNING, type.getName() + "DAO:findAll " + e.getMessage());
+        } catch (SQLException e){
+            e.printStackTrace();
         }
-        return null;
+        return books;
     }
 
 
-    public T findById(int id) {
+    @Override
+    public Optional<T> findById(Long id) {
+        String sql = createSelectQuery("Id");
 
-        String query = createSelectQuery(type.getSimpleName().toLowerCase()+"Id");// in loc de id
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-
-            return createObjects(resultSet).get(0);
+            return (Optional<T>) createObjects(resultSet).get(0);
         } catch (SQLException e) {
-            LOGGER.log(Level.WARNING, type.getName() + "DAO:findById " + e.getMessage());
+            throw new RuntimeException(e);
         }
-        return null;
-
     }
 
 
@@ -118,7 +116,11 @@ public class DAOGen<T> {
                     Object value = resultSet.getObject(fieldName);
                     PropertyDescriptor propertyDescriptor = new PropertyDescriptor(fieldName, type);
                     Method method = propertyDescriptor.getWriteMethod();
-                    method.invoke(instance, value);
+                    System.out.println(value.getClass());
+                    if(field.getType() == LocalDate.class)
+                        method.invoke(instance, ((LocalDateTime)value).toLocalDate());
+                    else
+                        method.invoke(instance, value);
                 }
                 list.add(instance);
             }
@@ -140,122 +142,45 @@ public class DAOGen<T> {
         return list;
     }
 
-
-    public T insert(T t) {
-        Connection connection = null;
-        PreparedStatement statement = null;
+    @Override
+    public boolean save(T t) {
         int k=1;
-        ResultSet resultSet = null;
         String query=createInsertQuery(t);
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-
+            PreparedStatement statement = connection.prepareStatement(query);
             for(Field field : t.getClass().getDeclaredFields()) {
-                if(field.getName().equals(type.getSimpleName().toLowerCase()+"Id")) {
-                    continue;
-                }
-                else {
                     field.setAccessible(true);
-                    statement.setObject(k, field.get(t).toString());
+                    statement.setObject(k, field.get(t));
                     k++;
                 }
-            }
+            int rowsInserted = statement.executeUpdate();
 
-            statement.executeUpdate();
-            return t;
+            return (rowsInserted != 1) ? false : true;
+
         } catch (SQLException e) {
-            LOGGER.log(Level.WARNING, type.getName() + "DAO:findAll " + e.getMessage());
+            e.printStackTrace();
+            return false;
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
-        return null;
     }
 
+    @Override
+    public void removeAll() {
+        String sql =createDeleteQuery();
 
-    public T update(T t)
-    {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        int k=1;
-        String query = createUpdateQuery();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-
-            int id=0;
-            for(Field field : t.getClass().getDeclaredFields()) {
-                if(field.getName().equals(type.getSimpleName().toLowerCase()+"Id")) {
-                    field.setAccessible(true);
-                    id=Integer.parseInt(field.get(t).toString());
-                }
-                field.setAccessible(true);
-                statement.setObject(k,field.get(t).toString());
-                k++;
-            }
-            statement.setObject(k,id);
-            System.out.println(statement);
-            statement.executeUpdate();
-            return t;
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.log(Level.WARNING, type.getName() + "DAO:update " + e.getMessage());
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
-        return null;
     }
-
-
-    public boolean delete(T t) {
-        Connection connection = null;
-        PreparedStatement statement = null;
-        int k=1;
-        String query = createDeleteQuery(t);
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-
-            for(Field field : t.getClass().getDeclaredFields()) {
-                if(field.getName().equals(type.getSimpleName().toLowerCase()+"Id")) {
-                    field.setAccessible(true);
-                    statement.setObject(1,field.get(t).toString());
-                    k++;
-                }
-                else {
-                    continue;
-
-                }
-            }
-            statement.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            LOGGER.log(Level.WARNING, type.getName() + "DAO:delete " + e.getMessage());
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-        return false;
-    }
-
-    private String createUpdateQuery() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("UPDATE ");
-        sb.append(type.getSimpleName());
-        sb.append(" SET ");
-        for (Field field : type.getDeclaredFields()) {
-            if (!field.getName().equals("id")) {
-                sb.append(field.getName()).append("=?,");
-            }
-        }
-        sb.deleteCharAt(sb.length() - 1);
-        sb.append(" WHERE " + type.getSimpleName().toLowerCase() + "Id=?");
-        return sb.toString();
-    }
-
-    private String createDeleteQuery(T t) {
+    private String createDeleteQuery() {
         StringBuilder sb = new StringBuilder();
         sb.append("DELETE FROM ");
         sb.append(type.getSimpleName());
-        sb.append(" WHERE ");
-        sb.append(type.getSimpleName().toLowerCase()).append("Id=?");
         return sb.toString();
     }
 
 }
-
