@@ -5,11 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3d6a1c6a-9305-49f0-85b9-f0d9471bdbb8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controller/LoginController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/database/Bootstrap.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/database/SQLTableCreationFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/model/Right.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/model/Role.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/model/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/model/builder/UserBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/model/validator/UserValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/repository/security/RightsRolesRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/repository/security/RightsRolesRepositoryMySQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/repository/user/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/repository/user/UserRepositoryMySQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/service/book/BookServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/service/user/AuthenticationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/service/user/AuthenticationServiceMySQL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/view/LoginView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/book/BookRepositoryCacheDecorator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/book/BookRepositoryCacheDecorator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/book/BookRepositoryDecorator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/book/BookRepositoryDecorator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/book/BookRepositoryMock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/book/BookRepositoryMock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/repository/book/BookRepositoryMySQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/book/BookRepositoryMySQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/book/Cache.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/book/Cache.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/BookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/book/BookService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/BookServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/BookRepositoryMySQLTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/BookRepositoryMySQLTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +50,12 @@
         <task path="$PROJECT_DIR$">
           <activation />
         </task>
-        <projects_view />
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
       </state>
     </system>
   </component>
@@ -71,7 +99,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.BookRepositoryMySQLTest.testFindById">
+  <component name="RunManager" selected="Gradle.LAB5 [run]">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="LAB5.main" />
@@ -127,30 +155,6 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="BookRepositoryMockTest.testSave" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;BookRepositoryMockTest.testSave&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
     <configuration name="BookRepositoryMySQLTest.testFindById" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -175,13 +179,35 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
+    <configuration name="LAB5 [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="run" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.LAB5 [run]" />
         <item itemvalue="Gradle.BookRepositoryMySQLTest.testFindById" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Gradle.BookRepositoryMockTest.testFindAll" />
         <item itemvalue="Gradle.BookRepositoryMockTest.testFindById" />
-        <item itemvalue="Gradle.BookRepositoryMockTest.testSave" />
       </list>
     </recent_temporary>
   </component>
@@ -199,6 +225,7 @@
       <workItem from="1699290936776" duration="639000" />
       <workItem from="1699292749062" duration="694000" />
       <workItem from="1699301169004" duration="764000" />
+      <workItem from="1700401879187" duration="6227000" />
     </task>
     <servers />
   </component>
