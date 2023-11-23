@@ -1,47 +1,39 @@
+import controller.LoginController;
 import database.JDBConnectionWrapper;
-import model.Book;
-import model.builder.BookBuilder;
-import repository.book.BookRepository;
-import repository.book.BookRepositoryMock;
-import repository.book.BookRepositoryMySQL;
+import javafx.application.Application;
+import javafx.stage.Stage;
+import model.validator.UserValidator;
+import repository.security.RightsRolesRepository;
+import repository.security.RightsRolesRepositoryMySQL;
+import repository.user.UserRepository;
+import repository.user.UserRepositoryMySQL;
+import service.user.AuthenticationService;
+import service.user.AuthenticationServiceImpl;
+import view.LoginView;
 
-import java.time.LocalDate;
-import java.util.Date;
+import java.sql.Connection;
 
-public class Main {
+import static database.Constants.Schemas.TEST;
+
+public class Main extends Application {
     public static void main(String[] args){
-        System.out.println("Hello world!");
+        launch(args);
+    }
 
-        JDBConnectionWrapper connectionWrapper = new JDBConnectionWrapper("test_library");
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        final Connection connection = new JDBConnectionWrapper(TEST).getConnection();
 
+        final RightsRolesRepository rightsRolesRepository = new RightsRolesRepositoryMySQL(connection);
+        final UserRepository userRepository = new UserRepositoryMySQL(connection, rightsRolesRepository);
 
+        final AuthenticationService authenticationService = new AuthenticationServiceImpl(userRepository,
+                rightsRolesRepository);
 
-        BookRepository bookRepository = new BookRepositoryMySQL(connectionWrapper.getConnection());
+        final LoginView loginView = new LoginView(primaryStage);
 
-        Book book = new BookBuilder()
-                .setAuthor("', '', null); SLEEP(20); --")
-                .setTitle("Fram Ursul Polar")
-                .setPublishedDate(LocalDate.of(2010, 6, 2))
-                .build();
+        final UserValidator userValidator = new UserValidator(userRepository);
 
-        Book book1 = new BookBuilder()
-                .setAuthor("Agatha Christie")
-                .setTitle("Crima din Orient Express")
-                .setPublishedDate(LocalDate.of(1934, 1, 1))
-                .build();
-
-        Book book2 = new BookBuilder()
-                .setAuthor("J.k. Rowling")
-                .setTitle("Harry Potter")
-                .setPublishedDate(LocalDate.of(1997, 6, 26))
-                .build();
-
-        bookRepository.save(book);
-        bookRepository.save(book1);
-        bookRepository.save(book2);
-
-        System.out.println(bookRepository.findAll());
-
-
+        new LoginController(loginView, authenticationService, userValidator);
     }
 }
