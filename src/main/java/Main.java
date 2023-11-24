@@ -1,18 +1,30 @@
 import controller.LoginController;
+import database.DatabaseConnectionFactory;
 import database.JDBConnectionWrapper;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import model.Book;
+import model.builder.BookBuilder;
 import model.validator.UserValidator;
+import repository.book.BookRepository;
+import repository.book.BookRepositoryCacheDecorator;
+import repository.book.BookRepositoryMySQL;
+import repository.book.Cache;
 import repository.security.RightsRolesRepository;
 import repository.security.RightsRolesRepositoryMySQL;
 import repository.user.UserRepository;
 import repository.user.UserRepositoryMySQL;
+import service.book.BookService;
+import service.book.BookServiceImpl;
 import service.user.AuthenticationService;
+import service.user.AuthenticationServiceImpl;
 import service.user.AuthenticationServiceImpl;
 import view.LoginView;
 
 import java.sql.Connection;
+import java.time.LocalDate;
 
+import static database.Constants.Schemas.PRODUCTION;
 import static database.Constants.Schemas.TEST;
 
 public class Main extends Application {
@@ -32,8 +44,6 @@ public class Main extends Application {
 
         final LoginView loginView = new LoginView(primaryStage);
 
-        final UserValidator userValidator = new UserValidator(userRepository);
-
-        new LoginController(loginView, authenticationService, userValidator);
+        new LoginController(loginView, authenticationService);
     }
 }

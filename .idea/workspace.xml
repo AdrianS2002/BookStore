@@ -5,28 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3d6a1c6a-9305-49f0-85b9-f0d9471bdbb8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/service/user/AuthenticationServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/Bootstrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Bootstrap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/database/SQLTableCreationFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/SQLTableCreationFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Book.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Right.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Right.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Role.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/builder/UserBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/builder/UserBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/validator/UserValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/validator/UserValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/security/RightsRolesRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/security/RightsRolesRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/security/RightsRolesRepositoryMySQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/security/RightsRolesRepositoryMySQL.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/repository/user/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/user/UserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/repository/user/UserRepositoryMySQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/user/UserRepositoryMySQL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/book/BookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/book/BookService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/book/BookServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/book/BookServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/service/user/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/user/AuthenticationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/service/user/AuthenticationServiceMySQL.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/LoginView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/LoginView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/BookRepositoryMySQLTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/BookRepositoryMySQLTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/service/user/AuthenticationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/user/AuthenticationServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,26 +60,40 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;lab&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;D:/Facultate/ANULIII/SemI/IS/Lab5/src/main/java/org/example/Main.java&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "labNotification",
+    "last_opened_file_path": "D:/Facultate/ANULIII/SemI/IS/LAB5",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "onboarding.tips.debug.path": "D:/Facultate/ANULIII/SemI/IS/Lab5/src/main/java/org/example/Main.java",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
     </key>
   </component>
   <component name="RunManager" selected="Gradle.LAB5 [run]">
+    <configuration name="Bootstrap" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="database.Bootstrap" />
+      <module name="LAB5.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="database.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="LAB5.main" />
@@ -115,30 +115,6 @@
             <option value=":test" />
             <option value="--tests" />
             <option value="&quot;BookRepositoryMockTest.testFindAll&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="BookRepositoryMockTest.testFindById" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;BookRepositoryMockTest.testFindById&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -198,10 +174,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.LAB5 [run]" />
+        <item itemvalue="Application.Bootstrap" />
         <item itemvalue="Gradle.BookRepositoryMySQLTest.testFindById" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Gradle.BookRepositoryMockTest.testFindAll" />
-        <item itemvalue="Gradle.BookRepositoryMockTest.testFindById" />
       </list>
     </recent_temporary>
   </component>
@@ -225,7 +201,12 @@
       <workItem from="1700467416340" duration="614000" />
       <workItem from="1700546773497" duration="3306000" />
       <workItem from="1700736091723" duration="337000" />
-      <workItem from="1700736479716" duration="300000" />
+      <workItem from="1700736479716" duration="567000" />
+      <workItem from="1700737440419" duration="73000" />
+      <workItem from="1700758172382" duration="273000" />
+      <workItem from="1700758788041" duration="601000" />
+      <workItem from="1700759679272" duration="1531000" />
+      <workItem from="1700836901279" duration="5817000" />
     </task>
     <servers />
   </component>
