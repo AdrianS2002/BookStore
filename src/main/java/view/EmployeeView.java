@@ -35,6 +35,7 @@ public class EmployeeView {
     private Button viewAllBooksButton;
     private Button generateReportButton;
     private Button addBookButton;
+    private Button updateBookButton;
     private Button backButton;
     HBox hBoxTable;
     private Stage employeeStage;
@@ -51,7 +52,7 @@ public class EmployeeView {
         gridPane.setBackground(background);
 
 
-        Scene scene = new Scene(gridPane, 980, 650);
+        Scene scene = new Scene(gridPane, 1200, 650);
         employeeStage.setScene(scene);
 
         initializeSceneTitle(gridPane);
@@ -184,12 +185,18 @@ public class EmployeeView {
 
         //deleteBookButton.setOnAction(e -> deleteButtonClicked());
 
+        updateBookButton = new Button("Update");
+        updateBookButton.setStyle("-fx-background-color: #7071E8; -fx-text-fill: #FFC7C7;");
+        updateBookButton.setFont(Font.font("Tahome", FontWeight.NORMAL, 15));
+        updateBookButton.setPrefWidth(100);
+
         hBoxTable = new HBox();
 
         hBoxTable.setPadding(new Insets(10, 10, 10, 10));
         hBoxTable.setSpacing(10);
-        hBoxTable.getChildren().addAll(idBook, titleBook, authorBook, publishDateBook, quantityBook, addBookButton, deleteBookButton);
+        hBoxTable.getChildren().addAll(idBook, titleBook, authorBook, publishDateBook, quantityBook, addBookButton, deleteBookButton,updateBookButton);
         hBoxTable.setVisible(false);
+
         tableBook = new TableView<>();
         tableBook.getColumns().addAll(idColumn, titleColumn, authorColumn, publishDateColumn, quantityColumn);
 

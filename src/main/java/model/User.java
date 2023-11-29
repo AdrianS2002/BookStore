@@ -43,5 +43,12 @@ public class User {
         this.roles = roles;
     }
 
-    //to string
+    @Override
+    public String toString() {
+        return
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", roles=" + roles;
+    }
+//to string
 }
