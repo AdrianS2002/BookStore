@@ -82,13 +82,7 @@ public class BookRepositoryMySQL implements BookRepository{
     public boolean save(Book book) {
         String sql = "INSERT INTO book VALUES(null, ?, ?, ?, ?);";
 
-        String newSql = "INSERT INTO book VALUES(null, \'" + book.getAuthor() +"\', \'"+ book.getTitle()+"\', null );";
-
-
         try{
-//            Statement statement = connection.createStatement();
-//            statement.executeUpdate(newSql);
-//            return true;
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, book.getAuthor());
@@ -121,7 +115,8 @@ public class BookRepositoryMySQL implements BookRepository{
 
     @Override
     public Optional<Book> update(Book book) {
-        String sql = "UPDATE book SET quantity = ? WHERE id = ? AND quantity >= ?";
+        String sql = "UPDATE book SET quantity = quantity - ? WHERE id = ? AND quantity >= ?";
+
 
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

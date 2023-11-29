@@ -195,6 +195,11 @@ public class CustomerView {
 
 
     }
+
+    public void setBuyButton(EventHandler<ActionEvent> buyButtonListener) {
+        buyButton.setOnAction(buyButtonListener);
+    }
+
     public void showTable(boolean show) {
         table.setVisible(show);
     }
@@ -202,4 +207,10 @@ public class CustomerView {
     public void viewAllBooksButtonListener(EventHandler<ActionEvent> viewAllBooksButtonListener) {
         viewAllBooksButton.setOnAction(viewAllBooksButtonListener);
     }
+
+    // Change the method name to setBackButtonListener
+    public void setBackButtonListener(EventHandler<ActionEvent> backButtonListener) {
+        backButton.setOnAction(backButtonListener);
+    }
+
 }

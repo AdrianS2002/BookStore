@@ -3,6 +3,7 @@ package launcher;
 import controller.LoginController;
 import database.DatabaseConnectionFactory;
 import javafx.stage.Stage;
+import model.User;
 import repository.book.BookRepository;
 import repository.book.BookRepositoryMySQL;
 import repository.security.RightsRolesRepository;
@@ -14,6 +15,8 @@ import service.book.BookService;
 import service.book.BookServiceImpl;
 import service.user.AuthenticationService;
 import service.user.AuthenticationServiceImpl;
+import service.user.UserService;
+import service.user.UserServiceImpl;
 import view.CustomerView;
 import view.LoginView;
 
@@ -28,6 +31,7 @@ public class ComponentFactory {
 
     private final RightsRolesRepository rightsRolesRepository;
     private final BookRepository bookRepository;
+    private final UserService userService;
     private final BookService bookService;
 
     private static ComponentFactory instance;
@@ -52,8 +56,11 @@ public class ComponentFactory {
         this.loginView = new LoginView(stage);
 
         this.bookRepository = new BookRepositoryMySQL(connection);  //avem nevoie de book service pt ca nu putem apela bookrepo
+
         this.bookService = new BookServiceImpl(new BookRepositoryMySQL(connection));
-        this.loginController = new LoginController(loginView, authenticationService, bookService);
+
+        this.userService = new UserServiceImpl(new UserRepositoryMySQL(connection, rightsRolesRepository));
+        this.loginController = new LoginController(loginView, authenticationService, bookService, userService);
 
     }
 
