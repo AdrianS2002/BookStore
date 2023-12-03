@@ -50,8 +50,6 @@ public class LoginView {
         initializeSceneTitle(gridPane);
         primaryStage.getIcons().add(new Image("file:icon.png"));
         initializeFields(gridPane);
-
-
         primaryStage.show();
     }
 

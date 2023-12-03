@@ -43,6 +43,8 @@ public class Bootstrap {
             Statement statement = connection.createStatement();
 
             String[] dropStatements = {
+                    "TRUNCATE `employee_book`;", //stergem datele din tabelul employee_book
+                    "DROP TABLE `employee_book`;", //stergem tabelul employee_book
                     "TRUNCATE `role_right`;",  //stergem datele din tabelul role_right
                     "DROP TABLE `role_right`;", //stergem tabelul role_right
                     "TRUNCATE `right`;",
