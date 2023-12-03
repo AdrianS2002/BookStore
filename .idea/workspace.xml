@@ -5,16 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3d6a1c6a-9305-49f0-85b9-f0d9471bdbb8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/report.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/AdminController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/CustomerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/launcher/ComponentFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/launcher/ComponentFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Role.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/EmployeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/EmployeeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/book/BookRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/book/BookRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/book/BookRepositoryCacheDecorator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/book/BookRepositoryCacheDecorator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repository/book/BookRepositoryMock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/book/BookRepositoryMock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/repository/book/BookRepositoryMySQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/book/BookRepositoryMySQL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/user/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/user/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/user/UserRepositoryMySQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/user/UserRepositoryMySQL.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/service/book/BookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/book/BookService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/service/book/BookServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/service/book/BookServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/view/AdminView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/AdminView.java" afterDir="false" />
@@ -73,7 +74,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;proiectUI&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;proiect&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/Facultate/ANULIII/SemI/IS/Proiect - Copy&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -231,6 +232,10 @@
       <workItem from="1701181042804" duration="792000" />
       <workItem from="1701184329759" duration="9060000" />
       <workItem from="1701259099393" duration="17000" />
+      <workItem from="1701259359320" duration="49000" />
+      <workItem from="1701595619011" duration="8680000" />
+      <workItem from="1701604417967" duration="1712000" />
+      <workItem from="1701606284281" duration="448000" />
     </task>
     <servers />
   </component>
@@ -240,11 +245,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/repository/book/BookRepositoryMySQL.java</url>
-          <line>117</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/controller/LoginController.java</url>
           <line>55</line>

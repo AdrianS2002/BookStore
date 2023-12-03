@@ -1,6 +1,10 @@
 package view;
 
 
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -10,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -210,6 +215,73 @@ public class AdminView {
         this.foundUser.setText(foundUser.toString());
     }
 
+    public void showMessageAddUser(String s) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Add a user");
+        alert.setHeaderText(null);
+        alert.setContentText(s);
+
+        ImageView imageView = new ImageView(new Image("file:GreenCheck.png"));
+
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(50);
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.setGraphic(imageView);
+
+        alert.showAndWait();
+    }
+
+    public void showMessageDeleteUser(String s) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Delete a user");
+        alert.setHeaderText(null);
+        alert.setContentText(s);
+        alert.showAndWait();
+    }
+
+    public void showMessageUpdateUser(String s) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Update a user");
+        alert.setHeaderText(null);
+        alert.setContentText(s);
+        alert.showAndWait();
+    }
+
+    public void generateReport() {
+        try {
+            String fileName = "reportAdmin.pdf";
+            PdfWriter writer = new PdfWriter(fileName);
+            PdfDocument pdf = new PdfDocument(writer);
+            Document document = new Document(pdf);
+
+            // Add content to the PDF document
+            document.add(new Paragraph("Hello World"));
+
+            document.close();
+
+            showMessageGenerateReport("Report generated successfully!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            showMessageGenerateReport("Error generating report!");
+        }
+    }
+    public void showMessageGenerateReport(String s) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Generate Report");
+        alert.setHeaderText(null);
+        alert.setContentText(s);
+
+        ImageView imageView = new ImageView(new Image("file:GreenCheck.png"));
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(50);
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.setGraphic(imageView);
+
+        alert.showAndWait();
+    }
+
     public class UserPrintUI {
         private Long id;
         private String email;
@@ -284,6 +356,13 @@ public class AdminView {
     public void findUserButtonListener(EventHandler<ActionEvent> findUserButtonListener) {
         findUserButton.setOnAction(findUserButtonListener);
     }
+
+    public void generateReportButtonListener(EventHandler<ActionEvent> generateReportButtonListener) {
+        generateReportButton.setOnAction(generateReportButtonListener);
+    }
+
+
+
 }
 
 

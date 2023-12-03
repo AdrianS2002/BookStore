@@ -30,9 +30,19 @@ public class BookServiceImpl implements BookService {
     public Optional<Book> update(Book book) {
         return bookRepository.update(book);
     }
+
+    @Override
+    public Optional<Book> updateForRestock(Book book) {
+        return bookRepository.updateForRestock(book);
+    }
     @Override
     public boolean save(Book book) {
         return bookRepository.save(book);
+    }
+
+    @Override
+    public void removeById(Long id) {
+        bookRepository.removeById(id);
     }
 
 
