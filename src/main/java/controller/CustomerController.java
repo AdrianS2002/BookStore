@@ -44,12 +44,12 @@ public class CustomerController {
                 Book byId = bookService.findById(bookId);
                 byId.setQuantity(quantity);
                 bookService.update(byId);
-                //customerView.showMessage("Book bought successfully!");
-                System.out.println("Book bought successfully!");
+                customerView.showPositiveMessage("Book bought successfully!");
+                //System.out.println("Book bought successfully!");
             }
             else
-               /// customerView.showMessage("Not enough books in stock!");
-                System.out.println("Book  unsuccessfully!");
+                customerView.showNegativeMessage("Not enough books in stock!");
+            //System.out.println("Book  unsuccessfully!");
 
         }
 

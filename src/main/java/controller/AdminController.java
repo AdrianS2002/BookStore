@@ -30,6 +30,7 @@ public class AdminController {
         this.adminView.deleteUserButton(new DeleteUserButtonListener());
         this.adminView.updateUserButton(new UpdateUserButtonListener());
         this.adminView.findUserButtonListener(new FindUserButtonListener());
+        this.adminView.generateReportButtonListener(new GenerateReportButtonListener());
     }
 
     private class ViewAllUsersButtonListenerForAdmin implements EventHandler<ActionEvent>{
@@ -51,6 +52,7 @@ public class AdminController {
             String roles = adminView.getRoles();
             String password = adminView.getPassword();
             authenticationService.register(username,password);
+            adminView.showMessageAddUser("User added successfully!");
         }
     }
 
@@ -59,6 +61,7 @@ public class AdminController {
         public void handle(ActionEvent event) {
             Long id = adminView.getId();
             userService.removeById(id);
+            adminView.showMessageDeleteUser("User deleted successfully!");
         }
     }
 
@@ -69,6 +72,7 @@ public class AdminController {
             String roles = adminView.getRoles();
             Long roleList = Stream.of(roles.split(" ")).map(Long::parseLong).toList().get(0);
             userService.update(id, roleList);
+            adminView.showMessageUpdateUser("User updated successfully!");
         }
     }
 
@@ -81,7 +85,12 @@ public class AdminController {
         }
     }
 
-
-
+    public class GenerateReportButtonListener implements EventHandler<ActionEvent>{
+        @Override
+        public void handle(ActionEvent event) {
+            adminView.setUsers(userService.findAll());
+            adminView.generateReport();
+        }
+    }
 
 }
