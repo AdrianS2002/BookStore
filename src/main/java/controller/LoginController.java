@@ -54,25 +54,23 @@ public class LoginController {
 
             Notification<User> loginNotification = authenticationService.login(username, password);
 
-            if (loginNotification.hasErrors()){
+            if (loginNotification.hasErrors()) {
                 loginView.setActionTargetText(loginNotification.getFormattedErrors());
-            }else{
+            } else {
                 loginView.setActionTargetText("LogIn Successfull!");
                 List<Role> roles = loginNotification.getResult().getRoles();
-                if(roles.stream().anyMatch(role -> role.getRole().equals("administrator"))){
-                   // loginView.getPrimaryStage().close();
-                    new AdminController(new AdminView(loginView.getPrimaryStage()),loginNotification.getResult(), authenticationService, userService,employeeBookService,bookService);
-                }
-                else if (roles.stream().anyMatch(role -> role.getRole().equals("employee"))){
+                if (roles.stream().anyMatch(role -> role.getRole().equals("administrator"))) {
+                    // loginView.getPrimaryStage().close();
+                    new AdminController(new AdminView(loginView.getPrimaryStage()), loginNotification.getResult(), authenticationService, userService, employeeBookService, bookService);
+                } else if (roles.stream().anyMatch(role -> role.getRole().equals("employee"))) {
                     //loginView.getPrimaryStage().close();
-                    new EmployeeController(new EmployeeView(loginView.getPrimaryStage()),loginNotification.getResult(), bookService, employeeBookService,authenticationService,userService);
+                    new EmployeeController(new EmployeeView(loginView.getPrimaryStage()), loginNotification.getResult(), bookService, employeeBookService, authenticationService, userService);
 
-                }
-                else if (roles.stream().anyMatch(role -> role.getRole().equals("customer"))){
-                   // new EmployeeController(new EmployeeView(loginView.getPrimaryStage()),loginNotification.getResult(), bookService);
+                } else if (roles.stream().anyMatch(role -> role.getRole().equals("customer"))) {
+                    // new EmployeeController(new EmployeeView(loginView.getPrimaryStage()),loginNotification.getResult(), bookService);
 
-                    new CustomerController( new CustomerView(loginView.getPrimaryStage()), loginNotification.getResult(), bookService,userService, authenticationService,employeeBookService);
-                      //new AdminController(new AdminView(loginView.getPrimaryStage()),loginNotification.getResult(),authenticationService);
+                    new CustomerController(new CustomerView(loginView.getPrimaryStage()), loginNotification.getResult(), bookService, userService, authenticationService, employeeBookService);
+                    //new AdminController(new AdminView(loginView.getPrimaryStage()),loginNotification.getResult(),authenticationService);
                 }
 
             }

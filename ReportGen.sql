@@ -1,0 +1,1 @@
+insert into employee_book(user_id, book_id, quantity) values (3,3,1),(3,5,2),(9,2,1), (3,5,1);

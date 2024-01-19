@@ -1,0 +1,11 @@
+use library;
+INSERT INTO book (author, title, publishedDate, quantity) VALUES ('J.K Rowling', 'Harry Potter','1990-3-13',3);
+INSERT INTO book (author, title, publishedDate, quantity) VALUES ('Liviu Rebreanu', 'Ion','1936-8-6',30);
+INSERT INTO book (author, title, publishedDate, quantity) VALUES ('Marin Preda', 'Morometii','1914-3-13',15);
+INSERT INTO book (author, title, publishedDate, quantity) VALUES ('George Bacovia', 'Plumb','1924-5-13',5);
+INSERT INTO book (author, title, publishedDate, quantity) VALUES ('Tudor Arghezi', 'Fllori de mucigai','1932-3-13',7);
+use library;
+insert into user_role(user_id, role_id) values(1,2);
+update user_role set role_id = 1 where id =2;
+update user_role set role_id = 1 where id =11;
+update user_role set role_id = 2 where id =3;
