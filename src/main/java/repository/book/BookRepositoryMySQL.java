@@ -82,13 +82,7 @@ public class BookRepositoryMySQL implements BookRepository{
     public boolean save(Book book) {
         String sql = "INSERT INTO book VALUES(null, ?, ?, ?, ?);";
 
-        String newSql = "INSERT INTO book VALUES(null, \'" + book.getAuthor() +"\', \'"+ book.getTitle()+"\', null );";
-
-
         try{
-//            Statement statement = connection.createStatement();
-//            statement.executeUpdate(newSql);
-//            return true;
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, book.getAuthor());
@@ -120,8 +114,21 @@ public class BookRepositoryMySQL implements BookRepository{
     }
 
     @Override
+    public void removeById(Long id) {
+        try{
+            String sql = "DELETE from book where id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public Optional<Book> update(Book book) {
-        String sql = "UPDATE book SET quantity = ? WHERE id = ? AND quantity >= ?";
+        String sql = "UPDATE book SET quantity = quantity - ? WHERE id = ? AND quantity >= ?";
+
 
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -134,6 +141,23 @@ public class BookRepositoryMySQL implements BookRepository{
             return (rowsUpdated != 1) ? Optional.empty() : Optional.of(book);
 
         } catch (SQLException e){
+            e.printStackTrace();
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public Optional<Book> updateForRestock(Book book) {
+        String sql = "UPDATE book SET quantity = quantity + ? WHERE id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, String.valueOf(book.getQuantity()));
+            preparedStatement.setString(2, String.valueOf(book.getId()));
+            int rowsUpdated = preparedStatement.executeUpdate();
+
+            return (rowsUpdated != 1) ? Optional.empty() : Optional.of(book);
+
+        } catch (SQLException e) {
             e.printStackTrace();
             return Optional.empty();
         }

@@ -6,6 +6,7 @@ import repository.book.BookRepository;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Optional;
 
 public class BookServiceImpl implements BookService {
 
@@ -26,9 +27,24 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public Optional<Book> update(Book book) {
+        return bookRepository.update(book);
+    }
+
+    @Override
+    public Optional<Book> updateForRestock(Book book) {
+        return bookRepository.updateForRestock(book);
+    }
+    @Override
     public boolean save(Book book) {
         return bookRepository.save(book);
     }
+
+    @Override
+    public void removeById(Long id) {
+        bookRepository.removeById(id);
+    }
+
 
     @Override
     public int getAgeOfBook(Long id) {

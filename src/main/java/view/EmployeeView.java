@@ -1,6 +1,11 @@
 package view;
 
 
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -9,17 +14,19 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import javafx.scene.image.Image;
 import model.Book;
+import model.ReportData;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,14 +36,27 @@ public class EmployeeView {
     private TextField findedBook;
     private TextField bookId;
     TableView<Book> tableBook;
-    TextField idBook, titleBook, authorBook, publishDateBook, quantityBook;
+
+
+
+    TextField idBook;
+    TextField titleBook;
+    TextField authorBook;
+    TextField publishDateBook;
+    TextField quantityBook;
     private Button findBookButton;
     private Button deleteBookButton;
     private Button viewAllBooksButton;
     private Button generateReportButton;
     private Button addBookButton;
+    private Button updateBookButton;
     private Button backButton;
     HBox hBoxTable;
+
+    public Stage getEmployeeStage() {
+        return employeeStage;
+    }
+
     private Stage employeeStage;
     List<Book> books =  new ArrayList<>();
     public EmployeeView(Stage employeeStage) {
@@ -51,7 +71,7 @@ public class EmployeeView {
         gridPane.setBackground(background);
 
 
-        Scene scene = new Scene(gridPane, 980, 650);
+        Scene scene = new Scene(gridPane, 1200, 650);
         employeeStage.setScene(scene);
 
         initializeSceneTitle(gridPane);
@@ -184,12 +204,18 @@ public class EmployeeView {
 
         //deleteBookButton.setOnAction(e -> deleteButtonClicked());
 
+        updateBookButton = new Button("Update");
+        updateBookButton.setStyle("-fx-background-color: #7071E8; -fx-text-fill: #FFC7C7;");
+        updateBookButton.setFont(Font.font("Tahome", FontWeight.NORMAL, 15));
+        updateBookButton.setPrefWidth(100);
+
         hBoxTable = new HBox();
 
         hBoxTable.setPadding(new Insets(10, 10, 10, 10));
         hBoxTable.setSpacing(10);
-        hBoxTable.getChildren().addAll(idBook, titleBook, authorBook, publishDateBook, quantityBook, addBookButton, deleteBookButton);
+        hBoxTable.getChildren().addAll(idBook, titleBook, authorBook, publishDateBook, quantityBook, addBookButton, deleteBookButton,updateBookButton);
         hBoxTable.setVisible(false);
+
         tableBook = new TableView<>();
         tableBook.getColumns().addAll(idColumn, titleColumn, authorColumn, publishDateColumn, quantityColumn);
 
@@ -201,7 +227,31 @@ public class EmployeeView {
 
     }
 
+    public String getTitleBook() {
+        return titleBook.getText();
+    }
 
+    public String getAuthorBook() {
+        return authorBook.getText();
+    }
+
+    public Long getBookId() {
+        return Long.parseLong(idBook.getText());
+    }
+
+    public Long getIdBook() {
+        return Long.parseLong(bookId.getText());
+    }
+
+    public LocalDate getPublishDateBook() {
+        String s = publishDateBook.getText();
+        System.out.println(s);
+        return LocalDate.parse(s, DateTimeFormatter.ISO_DATE);
+    }
+
+    public Integer getQuantityBook() {
+        return Integer.parseInt(quantityBook.getText());
+    }
 
     public void setBooks(List<Book> all) {
         tableBook.getItems().clear();
@@ -217,6 +267,129 @@ public class EmployeeView {
 
     public void viewAllBooksButtonListenerForEmployee(EventHandler<ActionEvent> viewAllBooksButtonListener) {
         viewAllBooksButton.setOnAction(viewAllBooksButtonListener);
+    }
+
+    public void AddBookButtonListener(EventHandler<ActionEvent> addBookButtonListener) {
+        addBookButton.setOnAction(addBookButtonListener);
+    }
+
+    public void showMessageAddBook(String s) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Add a book");
+        alert.setHeaderText(null);
+        alert.setContentText(s);
+
+        ImageView imageView = new ImageView(new Image("file:GreenCheck.png"));
+
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(50);
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.setGraphic(imageView);
+
+        alert.showAndWait();
+
+    }
+
+    public void deleteBookButtonListener(EventHandler<ActionEvent> deleteBookButtonListener) {
+        deleteBookButton.setOnAction(deleteBookButtonListener);
+    }
+
+    public void showMessageDeleteBook(String s) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Delete a book");
+        alert.setHeaderText(null);
+        alert.setContentText(s);
+
+        ImageView imageView = new ImageView(new Image("file:GreenCheck.png"));
+
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(50);
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.setGraphic(imageView);
+
+        alert.showAndWait();
+
+    }
+
+    public void updateBookButtonListener(EventHandler<ActionEvent> updateBookButtonListener) {
+        updateBookButton.setOnAction(updateBookButtonListener);
+    }
+
+    public void showMessageUpdateBook(String s) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Update a book");
+        alert.setHeaderText(null);
+        alert.setContentText(s);
+
+        ImageView imageView = new ImageView(new Image("file:GreenCheck.png"));
+
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(50);
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.setGraphic(imageView);
+
+        alert.showAndWait();
+    }
+    
+    
+
+    public void findBookButtonListener(EventHandler<ActionEvent> findBookButtonListener) {
+        findBookButton.setOnAction(findBookButtonListener);
+    }
+
+    public void setFoundBook(Book book) {
+        this.findedBook.setText(book.toString());
+    }
+
+    public void generateReportButtonListener(EventHandler<ActionEvent> generateReportButtonListener) {
+        generateReportButton.setOnAction(generateReportButtonListener);
+    }
+
+    public void generateReport(List<ReportData> reportDataList) {
+        try {
+            String fileName = "reportEmployee.pdf";
+            PdfWriter writer = new PdfWriter(fileName);
+            PdfDocument pdf = new PdfDocument(writer);
+            Document document = new Document(pdf);
+
+            // Add content to the PDF document
+            StringBuilder stringBuilder = new StringBuilder();
+
+            for(ReportData reportData: reportDataList)
+            {
+                stringBuilder.append(reportData.toString()+"\n");
+            }
+
+            document.add(new Paragraph(stringBuilder.toString()));
+
+            document.close();
+
+            showMessageGenerateReport("Report generated successfully!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            showMessageGenerateReport("Error generating report!");
+        }
+    }
+    public void setBackButtonListener(EventHandler<ActionEvent> backButtonListener) {
+        backButton.setOnAction(backButtonListener);
+    }
+    public void showMessageGenerateReport(String s) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Generate Report");
+        alert.setHeaderText(null);
+        alert.setContentText(s);
+
+        ImageView imageView = new ImageView(new Image("file:GreenCheck.png"));
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(50);
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.setGraphic(imageView);
+
+        alert.showAndWait();
     }
 }
 

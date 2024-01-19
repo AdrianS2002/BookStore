@@ -8,7 +8,9 @@ import model.validator.Notification;
 import model.validator.UserValidator;
 import repository.book.BookRepository;
 import service.book.BookService;
+import service.employeeBook.EmployeeBookService;
 import service.user.AuthenticationService;
+import service.user.UserService;
 import view.AdminView;
 import view.CustomerView;
 import view.EmployeeView;
@@ -23,18 +25,25 @@ public class LoginController {
 
     private final BookService bookService;
 
+    private final UserService userService;
+
 
     private final AuthenticationService authenticationService;
 
+    private final EmployeeBookService employeeBookService;
 
-    public LoginController(LoginView loginView, AuthenticationService authenticationService, BookService bookService) {
+
+    public LoginController(LoginView loginView, AuthenticationService authenticationService, BookService bookService, UserService userService, EmployeeBookService employeeBookService) {
         this.loginView = loginView;
         this.authenticationService = authenticationService;
         this.bookService = bookService;
+        this.userService = userService;
+        this.employeeBookService = employeeBookService;
         this.loginView.addLoginButtonListener(new LoginButtonListener());
         this.loginView.addRegisterButtonListener(new RegisterButtonListener());
 
     }
+
 
     private class LoginButtonListener implements EventHandler<ActionEvent> {
 
@@ -50,19 +59,20 @@ public class LoginController {
             }else{
                 loginView.setActionTargetText("LogIn Successfull!");
                 List<Role> roles = loginNotification.getResult().getRoles();
-                if(roles.stream().anyMatch(role -> role.getRole().equals("admin"))){
+                if(roles.stream().anyMatch(role -> role.getRole().equals("administrator"))){
                    // loginView.getPrimaryStage().close();
-                  //  new AdminController(new AdminView(loginView.getPrimaryStage()),loginNotification.getResult(), bookService);
+                    new AdminController(new AdminView(loginView.getPrimaryStage()),loginNotification.getResult(), authenticationService, userService,employeeBookService,bookService);
                 }
                 else if (roles.stream().anyMatch(role -> role.getRole().equals("employee"))){
                     //loginView.getPrimaryStage().close();
-                    new EmployeeController(new EmployeeView(loginView.getPrimaryStage()),loginNotification.getResult(), bookService);
+                    new EmployeeController(new EmployeeView(loginView.getPrimaryStage()),loginNotification.getResult(), bookService, employeeBookService,authenticationService,userService);
 
                 }
                 else if (roles.stream().anyMatch(role -> role.getRole().equals("customer"))){
-                    new EmployeeController(new EmployeeView(loginView.getPrimaryStage()),loginNotification.getResult(), bookService);
+                   // new EmployeeController(new EmployeeView(loginView.getPrimaryStage()),loginNotification.getResult(), bookService);
 
-                    //new CustomerController( new CustomerView(loginView.getPrimaryStage()), loginNotification.getResult(), bookService);
+                    new CustomerController( new CustomerView(loginView.getPrimaryStage()), loginNotification.getResult(), bookService,userService, authenticationService,employeeBookService);
+                      //new AdminController(new AdminView(loginView.getPrimaryStage()),loginNotification.getResult(),authenticationService);
                 }
 
             }

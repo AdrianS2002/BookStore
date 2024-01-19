@@ -40,4 +40,14 @@ public class BookRepositoryMock implements BookRepository{
     public Optional<Book> update(Book book) {
         return Optional.empty();
     }
+
+    @Override
+    public Optional<Book> updateForRestock(Book book) {
+        return Optional.empty();
+    }
+
+    @Override
+    public void removeById(Long id) {
+        books.removeIf(it -> it.getId().equals(id));
+    }
 }

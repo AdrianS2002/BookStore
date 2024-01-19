@@ -10,6 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -195,11 +196,58 @@ public class CustomerView {
 
 
     }
+
+    public void setBuyButton(EventHandler<ActionEvent> buyButtonListener) {
+        buyButton.setOnAction(buyButtonListener);
+    }
+
     public void showTable(boolean show) {
         table.setVisible(show);
     }
 
     public void viewAllBooksButtonListener(EventHandler<ActionEvent> viewAllBooksButtonListener) {
         viewAllBooksButton.setOnAction(viewAllBooksButtonListener);
+    }
+
+    // Change the method name to setBackButtonListener
+    public void setBackButtonListener(EventHandler<ActionEvent> backButtonListener) {
+        backButton.setOnAction(backButtonListener);
+    }
+
+    public void showPositiveMessage(String s) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Buy a book");
+        alert.setHeaderText(null);
+        alert.setContentText(s);
+
+        // Create ImageView with the icon image
+        ImageView imageView = new ImageView(new Image("file:GreenCheck.png"));
+
+        // Set the size of the ImageView
+        imageView.setFitWidth(50); // Adjust the width as needed
+        imageView.setFitHeight(50); // Adjust the height as needed
+
+        // Get the dialog pane and set the graphic (icon)
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.setGraphic(imageView);
+
+        alert.showAndWait();
+    }
+
+    public void showNegativeMessage(String s) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Buy a book");
+        alert.setHeaderText(null);
+        alert.setContentText(s);
+
+        ImageView imageView = new ImageView(new Image("file:GreenCheck.png"));
+
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(50);
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.setGraphic(imageView);
+
+        alert.showAndWait();
     }
 }

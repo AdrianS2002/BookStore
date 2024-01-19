@@ -1,6 +1,10 @@
 package view;
 
 
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -9,37 +13,41 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import javafx.scene.image.Image;
-import model.Book;
+import model.ReportData;
+import model.Role;
 import model.User;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class AdminView {
 
-    private TextField findedUser;
+    private TextField foundUser;
+
+
+
     private TextField userId;
     TableView<User> tableUser;
-    TextField idUser, username, rolesUser;
-    private Button findBookButton;
-    private Button deleteBookButton;
+    TextField idUser, username, rolesUser, passwordUser;
+    private Button findUserButton;
+    private Button deleteUserButton;
+    private Button updateUserButton;
     private Button viewAllUsersButton;
     private Button generateReportButton;
-    private Button addBookButton;
+    private Button addUserButton;
     private Button backButton;
     HBox hBoxTable;
     private Stage adminStage;
-    List<Book> books =  new ArrayList<>();
+
     public AdminView(Stage adminStage) {
         this.adminStage = adminStage;
         adminStage.setTitle("Admin Page");
@@ -61,26 +69,29 @@ public class AdminView {
 
         adminStage.show();
     }
-    private void initializeGridPane(GridPane gridPane){
+
+    private void initializeGridPane(GridPane gridPane) {
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setHgap(10);
         gridPane.setVgap(10);
         gridPane.setPadding(new Insets(25, 25, 25, 25));
     }
-    private void initializeSceneTitle(GridPane gridPane){
+
+    private void initializeSceneTitle(GridPane gridPane) {
         Text sceneTitle = new Text("Welcome to our admin page");
         sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         gridPane.add(sceneTitle, 0, 0, 2, 1);
         GridPane.setHalignment(sceneTitle, HPos.CENTER);
     }
-    private void initializeFields(GridPane gridPane){
-        Label buyBookLabel = new Label("Find a user:");
-        buyBookLabel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
-        gridPane.add(buyBookLabel, 0, 1);
 
-        Label bookIdLabel = new Label("User id:");
-        bookIdLabel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
-        gridPane.add(bookIdLabel, 0, 2);
+    private void initializeFields(GridPane gridPane) {
+        Label findUserById = new Label("Find a user:");
+        findUserById.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        gridPane.add(findUserById, 0, 1);
+
+        Label userIdLabel = new Label("User id:");
+        userIdLabel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        gridPane.add(userIdLabel, 0, 2);
 
         userId = new TextField();
         userId.setPromptText("Give the id of the user you want to find");
@@ -88,22 +99,35 @@ public class AdminView {
         userId.getText();
         gridPane.add(userId, 1, 2);
 
-        findBookButton = new Button("Find user by Id");
+        findUserButton = new Button("Find user by Id");
         HBox signInButtonHBox = new HBox(10);
         signInButtonHBox.setAlignment(Pos.BOTTOM_RIGHT);
-        signInButtonHBox.getChildren().add(findBookButton);
-        findBookButton.setStyle("-fx-background-color: #7071E8; -fx-text-fill: #FFC7C7;");
-        findBookButton.setFont(Font.font("Tahome", FontWeight.NORMAL, 15));
+        signInButtonHBox.getChildren().add(findUserButton);
+        findUserButton.setStyle("-fx-background-color: #7071E8; -fx-text-fill: #FFC7C7;");
+        findUserButton.setFont(Font.font("Tahome", FontWeight.NORMAL, 15));
         gridPane.add(signInButtonHBox, 2, 2);
 
-        Label findedBookLabel = new Label("Find book:");
-        findedBookLabel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
-        gridPane.add(findedBookLabel, 0, 4);
+        foundUser = new TextField();
+        foundUser.setPrefColumnCount(20);
+        foundUser.getText();
+        gridPane.add(foundUser, 1, 4);
 
-        findedUser = new TextField();
-        findedUser.setPrefColumnCount(20);
-        findedUser.getText();
-        gridPane.add(findedUser, 1, 4);
+        Label assignRole = new Label("Assign a role to a user:");
+        assignRole.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        gridPane.add(assignRole, 2, 3);
+
+        Label adminRoleLable = new Label("Admin role: 1");
+        adminRoleLable.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        gridPane.add(adminRoleLable, 2, 4);
+
+        Label employeeRoleLable = new Label("Employee role: 2");
+        employeeRoleLable.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        gridPane.add(employeeRoleLable, 2, 5);
+
+        Label customerRoleLable = new Label("Customer role: 3");
+        customerRoleLable.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        gridPane.add(customerRoleLable, 2, 6);
+
 
         viewAllUsersButton = new Button("View all users");
         HBox logInButtonHBox = new HBox(10);
@@ -138,9 +162,13 @@ public class AdminView {
         usernameColumn.setMinWidth(200);
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
 
-        TableColumn<User, List<String>> rolesUserColumn = new TableColumn<>("Roles");
+        TableColumn<User, List<Role>> rolesUserColumn = new TableColumn<>("Roles");
         rolesUserColumn.setMinWidth(200);
-        rolesUserColumn.setCellValueFactory(new PropertyValueFactory<>("rolesUser"));
+        rolesUserColumn.setCellValueFactory(new PropertyValueFactory<>("roles"));
+
+        TableColumn<User, String> passwordColumn = new TableColumn<>("Password");
+        passwordColumn.setMinWidth(200);
+        passwordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
 
         idUser = new TextField();
         idUser.setPromptText("Id");
@@ -154,32 +182,40 @@ public class AdminView {
         rolesUser.setPromptText("roles");
         rolesUser.setMinWidth(100);
 
+        passwordUser = new TextField();
+        passwordUser.setPromptText("password");
+        passwordUser.setMinWidth(100);
 
-        addBookButton = new Button("Add");
-        addBookButton.setStyle("-fx-background-color: #7071E8; -fx-text-fill: #FFC7C7;");
-        addBookButton.setFont(Font.font("Tahome", FontWeight.NORMAL, 15));
-        addBookButton.setPrefWidth(100);
 
-        //addBookButton.setOnAction(e -> addButtonClicked());
+        addUserButton = new Button("Add");
+        addUserButton.setStyle("-fx-background-color: #7071E8; -fx-text-fill: #FFC7C7;");
+        addUserButton.setFont(Font.font("Tahome", FontWeight.NORMAL, 15));
+        addUserButton.setPrefWidth(100);
 
-        deleteBookButton = new Button("Delete");
-        deleteBookButton.setStyle("-fx-background-color: #7071E8; -fx-text-fill: #FFC7C7;");
-        deleteBookButton.setFont(Font.font("Tahome", FontWeight.NORMAL, 15));
-        deleteBookButton.setPrefWidth(100);
 
-        //deleteBookButton.setOnAction(e -> deleteButtonClicked());
+        deleteUserButton = new Button("Delete");
+        deleteUserButton.setStyle("-fx-background-color: #7071E8; -fx-text-fill: #FFC7C7;");
+        deleteUserButton.setFont(Font.font("Tahome", FontWeight.NORMAL, 15));
+        deleteUserButton.setPrefWidth(100);
+
+
+        updateUserButton = new Button("Update");
+        updateUserButton.setStyle("-fx-background-color: #7071E8; -fx-text-fill: #FFC7C7;");
+        updateUserButton.setFont(Font.font("Tahome", FontWeight.NORMAL, 15));
+        updateUserButton.setPrefWidth(100);
+
 
         hBoxTable = new HBox();
 
         hBoxTable.setPadding(new Insets(10, 10, 10, 10));
         hBoxTable.setSpacing(10);
-        hBoxTable.getChildren().addAll(idUser, username, rolesUser, addBookButton, deleteBookButton);
+        hBoxTable.getChildren().addAll(idUser, username, rolesUser, passwordUser, addUserButton, deleteUserButton, updateUserButton);
         hBoxTable.setVisible(false);
         tableUser = new TableView<>();
-        tableUser.getColumns().addAll(idColumn, usernameColumn, rolesUserColumn);
+        tableUser.getColumns().addAll(idColumn, usernameColumn, rolesUserColumn, passwordColumn);
 
         VBox vBox = new VBox();
-        vBox.getChildren().addAll(tableUser,hBoxTable);
+        vBox.getChildren().addAll(tableUser, hBoxTable);
         tableUser.setVisible(false);
         gridPane.add(vBox, 0, 6, 2, 1);
 
@@ -188,10 +224,142 @@ public class AdminView {
 
     public void setUsers(List<User> all) {
         tableUser.getItems().clear();
+        List<UserPrintUI> list = all.stream().map(user -> new UserPrintUI(user.getId(), user.getUsername(),
+                user.getRoles().stream().map(role -> role.getRole()).collect(Collectors.joining(",")))).toList();//flat la rol
         tableUser.getItems().addAll(all);
+
+    }
+    public void setFoundUser(User foundUser) {
+        this.foundUser.setText(foundUser.toString());
     }
 
-    public void showTableOfBooksForUser(boolean show) {
+    public void showMessageAddUser(String s) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Add a user");
+        alert.setHeaderText(null);
+        alert.setContentText(s);
+
+        ImageView imageView = new ImageView(new Image("file:GreenCheck.png"));
+
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(50);
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.setGraphic(imageView);
+
+        alert.showAndWait();
+    }
+
+    public void showMessageDeleteUser(String s) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Delete a user");
+        alert.setHeaderText(null);
+        alert.setContentText(s);
+        alert.showAndWait();
+    }
+
+    public void showMessageUpdateUser(String s) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Update a user");
+        alert.setHeaderText(null);
+        alert.setContentText(s);
+        alert.showAndWait();
+    }
+
+    public void generateReport(List<ReportData> reportDataList) {
+        try {
+            String fileName = "reportAdmin.pdf";
+            PdfWriter writer = new PdfWriter(fileName);
+            PdfDocument pdf = new PdfDocument(writer);
+            Document document = new Document(pdf);
+
+            // Add content to the PDF document
+            StringBuilder stringBuilder = new StringBuilder();
+
+            for(ReportData reportData: reportDataList)
+            {
+                stringBuilder.append(reportData.toString()+"\n");
+            }
+
+            document.add(new Paragraph(stringBuilder.toString()));
+
+            document.close();
+
+            showMessageGenerateReport("Report generated successfully!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            showMessageGenerateReport("Error generating report!");
+        }
+    }
+    public void showMessageGenerateReport(String s) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Generate Report");
+        alert.setHeaderText(null);
+        alert.setContentText(s);
+
+        ImageView imageView = new ImageView(new Image("file:GreenCheck.png"));
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(50);
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.setGraphic(imageView);
+
+        alert.showAndWait();
+    }
+
+    public class UserPrintUI {
+        private Long id;
+        private String email;
+
+        private String roles;
+
+        public UserPrintUI(Long id, String email, String roles) {
+            this.id = id;
+            this.email = email;
+            this.roles = roles;
+
+        }
+
+        public Long getId() {
+            return id;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public String getRoles() {
+            return roles;
+        }
+    }
+
+    public String getUsername() {
+        return username.getText();
+    }
+
+    public String getRoles() {
+        return rolesUser.getText();
+    }
+
+    public String getPassword() {
+        return passwordUser.getText();
+    }
+
+
+    public void addUserButtonListener(EventHandler<ActionEvent> addUserButtonListener) {
+        addUserButton.setOnAction(addUserButtonListener);
+
+    }
+
+    public Long getId() {
+        return Long.parseLong(idUser.getText());
+    }
+
+    public Long getIdUser() {
+        return Long.parseLong(userId.getText());
+    }
+
+    public void showTableOfUser(boolean show) {
         tableUser.setVisible(show);
         hBoxTable.setVisible(show);
     }
@@ -200,6 +368,30 @@ public class AdminView {
     public void viewAllUsersButtonListenerForAdmin(EventHandler<ActionEvent> viewAllUsersButtonListener) {
 
         viewAllUsersButton.setOnAction(viewAllUsersButtonListener);
+    }
+
+    public void updateUserButton(EventHandler<ActionEvent> updateUserButtonListener) {
+        updateUserButton.setOnAction(updateUserButtonListener);
+    }
+
+    public void deleteUserButton(EventHandler<ActionEvent> deleteUserButtonListener) {
+        deleteUserButton.setOnAction(deleteUserButtonListener);
+    }
+
+    public void findUserButtonListener(EventHandler<ActionEvent> findUserButtonListener) {
+        findUserButton.setOnAction(findUserButtonListener);
+    }
+
+    public void generateReportButtonListener(EventHandler<ActionEvent> generateReportButtonListener) {
+        generateReportButton.setOnAction(generateReportButtonListener);
+    }
+
+    public void setBackButtonListener(EventHandler<ActionEvent> backButtonListener) {
+        backButton.setOnAction(backButtonListener);
+    }
+
+    public Stage getAdminStage() {
+        return adminStage;
     }
 }
 

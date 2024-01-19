@@ -44,6 +44,11 @@ public class BookRepositoryCacheDecorator extends BookRepositoryDecorator{
     }
 
     @Override
+    public Optional<Book> updateForRestock(Book book) {
+        return Optional.empty();
+    }
+
+    @Override
     public boolean save(Book book) {
         cache.invalidateCache();
         return decoratedRepository.save(book);
@@ -53,5 +58,11 @@ public class BookRepositoryCacheDecorator extends BookRepositoryDecorator{
     public void removeAll() {
         cache.invalidateCache();
         decoratedRepository.removeAll();
+    }
+
+    @Override
+    public void removeById(Long id) {
+        cache.invalidateCache();
+        decoratedRepository.removeById(id);
     }
 }

@@ -1,5 +1,6 @@
 package repository.user;
 import model.Book;
+import model.Role;
 import model.User;
 import model.builder.BookBuilder;
 import model.builder.UserBuilder;
@@ -48,6 +49,19 @@ public class UserRepositoryMySQL implements UserRepository {
         }
         return users;
     }
+
+    private Long findRoleIdForUser(Long userId) throws SQLException {
+        String sql = "SELECT role_id FROM user_role WHERE user_id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setLong(1, userId);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        resultSet.next();
+        return resultSet.getLong(1);
+    }
+
+
+
+
   //**  //trebuuie schimbat  concatenarea de stringuri   Nu ar trebui s afolosim Optional<User>
   @Override
   public Notification<User> findByUsernameAndPassword(String username, String password) {
@@ -63,6 +77,7 @@ public class UserRepositoryMySQL implements UserRepository {
               try (ResultSet userResultSet = preparedStatement.executeQuery()) {
                   if (userResultSet.next()) {
                       User user = new UserBuilder()
+                              .setId(userResultSet.getLong("id"))
                               .setUsername(userResultSet.getString("username"))
                               .setPassword(userResultSet.getString("password"))
                               .setRoles(rightsRolesRepository.findRolesForUser(userResultSet.getLong("id")))
@@ -108,6 +123,8 @@ public class UserRepositoryMySQL implements UserRepository {
 
     }
 
+
+
     @Override
     public void removeAll() {
         try {
@@ -118,7 +135,51 @@ public class UserRepositoryMySQL implements UserRepository {
             e.printStackTrace();
         }
     }
-//** concatenare de stringuri
+
+    @Override
+    public User findById(Long id) {
+        try {
+            String sql = "SELECT * FROM user WHERE id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            return getUserFromResultSet(resultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public boolean update(Long id, Long userRole) {
+        try {
+            String sql = "UPDATE user_role SET role_id = ? WHERE user_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, userRole);
+            preparedStatement.setLong(2, id);
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public void removeById(Long id) {
+        try{
+            String sql = "DELETE from user where id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, id);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    //** concatenare de stringuri
  ///
     @Override
     public boolean existsByUsername(String username) {
@@ -137,9 +198,10 @@ public class UserRepositoryMySQL implements UserRepository {
     }
 
 
+
     private User getUserFromResultSet(ResultSet resultSet) throws SQLException{
         return new UserBuilder()
-               // .setId(resultSet.getLong("id"))
+                .setId(resultSet.getLong("id"))
                 .setUsername(resultSet.getString("username"))
                 .setPassword(resultSet.getString("password"))
                 .setRoles(rightsRolesRepository.findRolesForUser(resultSet.getLong("id")))
