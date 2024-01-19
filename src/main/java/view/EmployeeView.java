@@ -23,6 +23,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Book;
+import model.ReportData;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -51,6 +52,11 @@ public class EmployeeView {
     private Button updateBookButton;
     private Button backButton;
     HBox hBoxTable;
+
+    public Stage getEmployeeStage() {
+        return employeeStage;
+    }
+
     private Stage employeeStage;
     List<Book> books =  new ArrayList<>();
     public EmployeeView(Stage employeeStage) {
@@ -342,39 +348,22 @@ public class EmployeeView {
         generateReportButton.setOnAction(generateReportButtonListener);
     }
 
-    public void generateReport() {
+    public void generateReport(List<ReportData> reportDataList) {
         try {
             String fileName = "reportEmployee.pdf";
             PdfWriter writer = new PdfWriter(fileName);
             PdfDocument pdf = new PdfDocument(writer);
             Document document = new Document(pdf);
 
-            // Add title to the PDF
-            document.add(new Paragraph("Report"));
+            // Add content to the PDF document
+            StringBuilder stringBuilder = new StringBuilder();
 
-            // Add date to the PDF
-            document.add(new Paragraph("Date: " + LocalDate.now()));
-
-            // Add a table with column headers
-            Table table = new Table(5);
-            table.addCell("Id");
-            table.addCell("Title");
-            table.addCell("Author");
-            table.addCell("Published Date");
-            table.addCell("Quantity");
-
-
-            // Add data to the table
-            for (Book book : books) {
-                table.addCell(book.getId().toString());
-                table.addCell(book.getTitle());
-                table.addCell(book.getAuthor());
-                table.addCell(book.getPublishedDate().toString());
-                table.addCell(String.valueOf(book.getQuantity()));
+            for(ReportData reportData: reportDataList)
+            {
+                stringBuilder.append(reportData.toString()+"\n");
             }
 
-            // Add the table to the PDF
-            document.add(table);
+            document.add(new Paragraph(stringBuilder.toString()));
 
             document.close();
 
@@ -383,6 +372,9 @@ public class EmployeeView {
             e.printStackTrace();
             showMessageGenerateReport("Error generating report!");
         }
+    }
+    public void setBackButtonListener(EventHandler<ActionEvent> backButtonListener) {
+        backButton.setOnAction(backButtonListener);
     }
     public void showMessageGenerateReport(String s) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

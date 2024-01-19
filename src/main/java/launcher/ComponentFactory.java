@@ -3,21 +3,22 @@ package launcher;
 import controller.LoginController;
 import database.DatabaseConnectionFactory;
 import javafx.stage.Stage;
-import model.User;
 import repository.book.BookRepository;
 import repository.book.BookRepositoryMySQL;
+import repository.employeeBook.EmployeeBook;
+import repository.employeeBook.EmployeeBookMySQL;
 import repository.security.RightsRolesRepository;
-import repository.security.RightsRolesRepositoryImpl;
 import repository.security.RightsRolesRepositoryImpl;
 import repository.user.UserRepository;
 import repository.user.UserRepositoryMySQL;
 import service.book.BookService;
 import service.book.BookServiceImpl;
+import service.employeeBook.EmployeeBookService;
+import service.employeeBook.EmployeeBookServiceImpl;
 import service.user.AuthenticationService;
 import service.user.AuthenticationServiceImpl;
 import service.user.UserService;
 import service.user.UserServiceImpl;
-import view.CustomerView;
 import view.LoginView;
 
 import java.sql.Connection;
@@ -31,6 +32,8 @@ public class ComponentFactory {
 
     private final RightsRolesRepository rightsRolesRepository;
     private final BookRepository bookRepository;
+
+    private final EmployeeBookService employeeBookService;
     private final UserService userService;
     private final BookService bookService;
 
@@ -56,11 +59,11 @@ public class ComponentFactory {
         this.loginView = new LoginView(stage);
 
         this.bookRepository = new BookRepositoryMySQL(connection);  //avem nevoie de book service pt ca nu putem apela bookrepo
-
         this.bookService = new BookServiceImpl(new BookRepositoryMySQL(connection));
-
         this.userService = new UserServiceImpl(new UserRepositoryMySQL(connection, rightsRolesRepository));
-        this.loginController = new LoginController(loginView, authenticationService, bookService, userService);
+        this.employeeBookService = new EmployeeBookServiceImpl(new EmployeeBookMySQL(connection));
+        this.loginController = new LoginController(loginView, authenticationService, bookService, userService,employeeBookService);
+
 
     }
 

@@ -21,6 +21,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.ReportData;
 import model.Role;
 import model.User;
 
@@ -110,6 +111,23 @@ public class AdminView {
         foundUser.setPrefColumnCount(20);
         foundUser.getText();
         gridPane.add(foundUser, 1, 4);
+
+        Label assignRole = new Label("Assign a role to a user:");
+        assignRole.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        gridPane.add(assignRole, 2, 3);
+
+        Label adminRoleLable = new Label("Admin role: 1");
+        adminRoleLable.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        gridPane.add(adminRoleLable, 2, 4);
+
+        Label employeeRoleLable = new Label("Employee role: 2");
+        employeeRoleLable.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        gridPane.add(employeeRoleLable, 2, 5);
+
+        Label customerRoleLable = new Label("Customer role: 3");
+        customerRoleLable.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        gridPane.add(customerRoleLable, 2, 6);
+
 
         viewAllUsersButton = new Button("View all users");
         HBox logInButtonHBox = new HBox(10);
@@ -248,7 +266,7 @@ public class AdminView {
         alert.showAndWait();
     }
 
-    public void generateReport() {
+    public void generateReport(List<ReportData> reportDataList) {
         try {
             String fileName = "reportAdmin.pdf";
             PdfWriter writer = new PdfWriter(fileName);
@@ -256,7 +274,14 @@ public class AdminView {
             Document document = new Document(pdf);
 
             // Add content to the PDF document
-            document.add(new Paragraph("Hello World"));
+            StringBuilder stringBuilder = new StringBuilder();
+
+            for(ReportData reportData: reportDataList)
+            {
+                stringBuilder.append(reportData.toString()+"\n");
+            }
+
+            document.add(new Paragraph(stringBuilder.toString()));
 
             document.close();
 
@@ -361,8 +386,13 @@ public class AdminView {
         generateReportButton.setOnAction(generateReportButtonListener);
     }
 
+    public void setBackButtonListener(EventHandler<ActionEvent> backButtonListener) {
+        backButton.setOnAction(backButtonListener);
+    }
 
-
+    public Stage getAdminStage() {
+        return adminStage;
+    }
 }
 
 

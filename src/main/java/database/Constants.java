@@ -48,6 +48,7 @@ public class Constants {
         public static final String RIGHT = "right";
         public static final String ROLE_RIGHT = "role_right";
         public static final String USER_ROLE = "user_role";
+        public static final String EMPLOYEE_BOOK = "employee_book";
 
         //relatie many to many to many intre user si role si la fel la role right
         public static final String[] ORDERED_TABLES_FOR_CREATION = new String[]{USER, ROLE, RIGHT, ROLE_RIGHT, USER_ROLE,
